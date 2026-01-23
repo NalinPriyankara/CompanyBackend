@@ -25,13 +25,13 @@ class AuthRepository extends BaseRepository implements AuthInterface
             ]);
         }
 
-        if ($user->status !== 'active') {
-            return [
-                'error' => true,
-                'message' => 'Your account is not active',
-                'status' => 403
-            ];
-        }
+        // if ($user->status !== 'active') {
+        //     return [
+        //         'error' => true,
+        //         'message' => 'Your account is not active',
+        //         'status' => 403
+        //     ];
+        // }
 
         $token = $user->createToken('auth-token')->plainTextToken;
 
@@ -59,7 +59,6 @@ class AuthRepository extends BaseRepository implements AuthInterface
                 'role_id' => $roleRow->id ?? null,
                 'sections' => $sections,
                 'areas' => $areas,
-                'status' => $user->status,
                 'first_name' => $user->first_name,
                 'last_name' => $user->last_name,
             ],

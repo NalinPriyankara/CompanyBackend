@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SecurityRolesController;
 use App\Http\Controllers\UserManagementController;
 use Illuminate\Http\Request;
@@ -49,3 +51,5 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
 Route::resource("user-managements", UserManagementController::class);
 
 Route::apiResource('security-roles', SecurityRolesController::class);
+Route::apiResource('projects', ProjectController::class);
+Route::apiResource('feedbacks', FeedbackController::class);

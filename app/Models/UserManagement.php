@@ -19,14 +19,11 @@ class UserManagement extends Authenticatable
         'first_name',
         'last_name', 
         'department', 
-        'epf',
         'telephone', 
         'address', 
         'email', 
         'password',
         'role',
-        'image',
-        'status'
     ];
 
     /**

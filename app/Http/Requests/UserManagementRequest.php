@@ -33,35 +33,27 @@ class UserManagementRequest extends FormRequest
             'first_name' => 'string|max:255',
             'last_name' => 'string|max:255',
             'department' => 'nullable|string|max:255',
-            'epf' => 'string|max:50',
             'telephone' => 'nullable|string|max:15',
             'address' => 'nullable|string|max:255',
             'email' => ['email', 'max:255', Rule::unique('user_managements', 'email')->ignore($id)],
             'password' => 'string|min:6',
             'role' => 'string', // Assuming validation via foreign key elsewhere
-            'status' => 'string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'remove_image' => 'sometimes|boolean',
         ];
 
         // For create (no $id), add 'required' to mandatory fields
         if (! $id) {
             $rules['first_name'] = 'required|' . $rules['first_name'];
             $rules['last_name'] = 'required|' . $rules['last_name'];
-            $rules['epf'] = 'required|' . $rules['epf'];
             $rules['email'] = ['required', 'email', 'max:255', Rule::unique('user_managements', 'email')];
             $rules['password'] = 'required|string|min:6';
             $rules['role'] = 'required|' . $rules['role'];
-            $rules['status'] = 'required|' . $rules['status'];
         } else {
             // For update ($id exists), make fields 'sometimes' (validate only if provided)
             // This allows partial updates (e.g., only image)
             $rules['first_name'] = 'sometimes|' . $rules['first_name'];
             $rules['last_name'] = 'sometimes|' . $rules['last_name'];
-            $rules['epf'] = 'sometimes|' . $rules['epf'];
             $rules['email'] = ['sometimes', 'email', 'max:255', Rule::unique('user_managements', 'email')->ignore($id)];
             $rules['role'] = 'sometimes|' . $rules['role'];
-            $rules['status'] = 'sometimes|' . $rules['status'];
             $rules['password'] = 'sometimes|nullable|string|min:6'; // Already conditional-ish
         }
 

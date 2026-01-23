@@ -19,7 +19,7 @@ class UserManagementRepository extends BaseRepository implements UserManagementI
     {
         return $this->model->select([
             'id','first_name','last_name','department',
-            'telephone','address','email','role'
+            'telephone','address','email','role',
         ])->get();
     }
 

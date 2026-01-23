@@ -6,7 +6,6 @@ use App\Repositories\All\UserManagement\UserManagementInterface;
 use App\Http\Requests\UserManagementRequest;
 use App\Models\UserManagement;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Storage;
 
 class UserManagementController extends Controller
 {
@@ -20,7 +19,6 @@ class UserManagementController extends Controller
     public function index(): JsonResponse
     {
         $users = $this->userRepo->all();
-        // Optionally: Loop to set image_url if not using model accessor
         return response()->json($users);
     }
 
@@ -28,11 +26,6 @@ class UserManagementController extends Controller
     {
         $data = $request->validated();
         // Remove manual bcrypt—model cast handles it
-
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('profile_images', 'public');
-            $data['image'] = $path;
-        }
 
         $user = $this->userRepo->create($data);
         return response()->json($user, 201);
@@ -44,7 +37,6 @@ class UserManagementController extends Controller
         if (! $user) {
             return response()->json(['message' => 'User not found'], 404);
         }
-        // image_url now auto-available via model accessor—no manual code needed
 
         return response()->json($user);
     }
@@ -58,37 +50,23 @@ class UserManagementController extends Controller
 
         $data = $request->validated();
 
-        // Handle image update/replacement (for profile page)
-        if ($request->hasFile('image')) {
-            // Delete old image if exists
-            if ($user->image) {
-                Storage::disk('public')->delete($user->image);
-            }
-            $path = $request->file('image')->store('profile_images', 'public');
-            $data['image'] = $path;
-        } elseif ($request->boolean('remove_image')) {
-            // Explicit removal (no new upload)
-            if ($user->image) {
-                Storage::disk('public')->delete($user->image);
-            }
-            $data['image'] = null;
-        }
-        // If neither, keep existing image (don't overwrite with null)
-
         // Remove manual bcrypt if present—model cast handles it
-        unset($data['password']); // Avoid re-hashing if not provided (cast will skip if null)
+        //unset($data['password']); // Avoid re-hashing if not provided (cast will skip if null)
+        if (!isset($data['password']) || empty($data['password'])) {
+            unset($data['password']);
+        }
 
         $updated = $this->userRepo->update($id, $data);
         if (! $updated) {
             return response()->json(['message' => 'User not found'], 404);
         }
 
-        // Refresh user to get updated image_url
+        // Refresh user to get updated data
         $user->refresh();
 
         return response()->json([
             'message' => 'Updated successfully',
-            'user' => $user // Include updated user with image_url
+            'user' => $user
         ]);
     }
 
@@ -97,11 +75,6 @@ class UserManagementController extends Controller
         $user = $this->userRepo->find($id);
         if (! $user) {
             return response()->json(['message' => 'User not found'], 404);
-        }
-
-        // Delete image file if exists
-        if ($user->image) {
-            Storage::disk('public')->delete($user->image);
         }
 
         $deleted = $this->userRepo->delete($id);

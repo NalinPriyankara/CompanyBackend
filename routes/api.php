@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SecurityRolesController;
@@ -53,3 +54,4 @@ Route::resource("user-managements", UserManagementController::class);
 Route::apiResource('security-roles', SecurityRolesController::class);
 Route::apiResource('projects', ProjectController::class);
 Route::apiResource('feedbacks', FeedbackController::class);
+Route::apiResource('contacts', ContactController::class);

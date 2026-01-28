@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Repositories\All\Auth\AuthInterface;
 use App\Repositories\All\Auth\AuthRepository;
+use App\Repositories\All\Contact\ContactInterface;
+use App\Repositories\All\Contact\ContactRepository;
 use App\Repositories\All\Feedback\FeedbackInterface;
 use App\Repositories\All\Feedback\FeedbackRepository;
 use App\Repositories\All\Project\ProjectInterface;
@@ -27,6 +29,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(SecurityRolesInterface::class, SecurityRolesRepository::class);
         $this->app->bind(ProjectInterface::class, ProjectRepository::class);
         $this->app->bind(FeedbackInterface::class, FeedbackRepository::class);
+        $this->app->bind(ContactInterface::class, ContactRepository::class);
+        
     }
 
     /**

@@ -5,16 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Feedback extends Model
+class Logo extends Model
 {
     use HasFactory;
 
-    protected $table = 'feedbacks';
+    protected $table = 'logo';
 
     protected $fillable = [
-        'author',
-        'position',
-        'rating',
-        'message',
+        'name',
+        'logo',
     ];
 }

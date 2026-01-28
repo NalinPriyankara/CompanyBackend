@@ -10,6 +10,8 @@ use App\Repositories\All\Feedback\FeedbackInterface;
 use App\Repositories\All\Feedback\FeedbackRepository;
 use App\Repositories\All\Project\ProjectInterface;
 use App\Repositories\All\Project\ProjectRepository;
+use App\Repositories\All\Logo\LogoInterface;
+use App\Repositories\All\Logo\LogoRepository;
 use App\Repositories\All\SecurityRoles\SecurityRolesInterface;
 use App\Repositories\All\SecurityRoles\SecurityRolesRepository;
 use Illuminate\Support\ServiceProvider;
@@ -28,6 +30,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(AuthInterface::class, AuthRepository::class);
         $this->app->bind(SecurityRolesInterface::class, SecurityRolesRepository::class);
         $this->app->bind(ProjectInterface::class, ProjectRepository::class);
+        $this->app->bind(LogoInterface::class, LogoRepository::class);
         $this->app->bind(FeedbackInterface::class, FeedbackRepository::class);
         $this->app->bind(ContactInterface::class, ContactRepository::class);
         

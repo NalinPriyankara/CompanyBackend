@@ -36,7 +36,7 @@ class ProjectRequest extends FormRequest
                     }
 
                     if ($value instanceof UploadedFile) {
-                        $validator = Validator::make([$attribute => $value], [$attribute => 'image|mimes:jpg,jpeg,png,webp|max:2048']);
+                        $validator = Validator::make([$attribute => $value], [$attribute => 'image|mimes:jpg,jpeg,png,webp']);
                         if ($validator->fails()) {
                             $fail($validator->errors()->first($attribute));
                         }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\LogoController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SecurityRolesController;
 use App\Http\Controllers\UserManagementController;
@@ -53,3 +54,4 @@ Route::resource("user-managements", UserManagementController::class);
 Route::apiResource('security-roles', SecurityRolesController::class);
 Route::apiResource('projects', ProjectController::class);
 Route::apiResource('feedbacks', FeedbackController::class);
+Route::apiResource('logo', LogoController::class);

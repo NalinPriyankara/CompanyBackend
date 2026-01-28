@@ -23,6 +23,7 @@ class FeedbackRequest extends FormRequest
     {
         return [
             'author'  => 'required|string|max:255',
+            'position' => 'nullable|string|max:255',
             'rating'  => 'required|integer|min:1|max:5',
             'message' => 'required|string',
         ];

@@ -6,6 +6,7 @@ use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\LogoController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SecurityRolesController;
+use App\Http\Controllers\StorageController;
 use App\Http\Controllers\UserManagementController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -50,6 +51,10 @@ Route::get('/user', function (Request $request) {
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+
+// Storage file serving routes
+Route::get('/storage/{path}', [StorageController::class, 'inline'])->where('path', '.*');
+
 Route::resource("user-managements", UserManagementController::class);
 
 Route::apiResource('security-roles', SecurityRolesController::class);
